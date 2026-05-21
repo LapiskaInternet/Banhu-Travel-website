@@ -1,0 +1,73 @@
+import { GraduationCap, Handshake, TrendingUp } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+
+const communityItems = [
+  {
+    icon: GraduationCap,
+    title: "Learner Guide Programme",
+    description:
+      "We train and mentor aspiring guides from Powerline and Shobiyane villages through CATHSSETA-accredited programmes, creating real career opportunities in tourism.",
+  },
+  {
+    icon: Handshake,
+    title: "Thornybush Partnership",
+    description:
+      "Our collaboration with Thornybush Nature Reserve and the Timbavati Foundation provides hands-on training placements for learner guides like Keletso and Gracius, bridging the gap between theory and practice.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Economic Impact",
+    description:
+      "Tourism revenue flows directly back into local communities, supporting families, education, and small business development in the Acornhoek area.",
+  },
+];
+
+export function Community() {
+  return (
+    <section id="community" className="py-20 lg:py-28 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+            Community First
+          </h2>
+          <p className="mt-4 text-muted-foreground text-lg">
+            Every tour supports local development
+          </p>
+        </div>
+
+        {/* Community Cards */}
+        <div className="mt-16 grid md:grid-cols-3 gap-8">
+          {communityItems.map((item) => (
+            <Card
+              key={item.title}
+              className="border-0 bg-muted/50 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <CardContent className="p-6 lg:p-8">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <item.icon className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="mt-4 font-serif text-xl font-bold text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-muted-foreground leading-relaxed">
+                  {item.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Partnership Banner */}
+        <div className="mt-16 bg-secondary rounded-2xl p-8 lg:p-12 text-center">
+          <p className="text-secondary-foreground/80 text-sm font-medium uppercase tracking-wide">
+            Thornybush Nature Reserve
+          </p>
+          <p className="mt-2 text-secondary-foreground text-xl lg:text-2xl font-serif">
+            Official Community Partnership
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
