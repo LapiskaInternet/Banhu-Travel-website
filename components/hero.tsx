@@ -1,8 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import { useLanguage } from "@/components/language-provider";
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="home"
@@ -21,11 +26,10 @@ export function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
         <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight text-balance">
-          Experience the Heart of Mpumalanga
+          {t.hero.title}
         </h1>
         <p className="mt-6 text-lg sm:text-xl text-white/90 max-w-2xl mx-auto text-pretty">
-          Guided tours through Mariepskop, Motsepadi, and the Acornhoek region
-          — where nature meets community
+          {t.hero.subtitle}
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
@@ -33,7 +37,7 @@ export function Hero() {
             size="lg"
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg"
           >
-            <Link href="#booking">Book Your Adventure</Link>
+            <Link href="#tours">{t.hero.cta}</Link>
           </Button>
           <Button
             asChild
@@ -41,7 +45,7 @@ export function Hero() {
             size="lg"
             className="border-white/60 text-white bg-white/10 hover:bg-white/20 hover:text-white px-8 py-6 text-lg"
           >
-            <Link href="#tours">Explore Tours</Link>
+            <Link href="#contact">{t.hero.ctaSecondary}</Link>
           </Button>
         </div>
       </div>

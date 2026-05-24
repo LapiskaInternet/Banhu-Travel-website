@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, Globe } from "lucide-react";
+import Image from "next/image";
+import { Menu, X, Phone, Globe, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,17 +11,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#tours", label: "Tours" },
-  { href: "#community", label: "Community" },
-  { href: "#booking", label: "Book Now" },
-  { href: "#contact", label: "Contact" },
-];
+import { useLanguage } from "@/components/language-provider";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { language, setLanguage, t, languages } = useLanguage();
+
+  const navLinks = [
+    { href: "#home", label: t.nav.home },
+    { href: "#tours", label: t.nav.tours },
+    { href: "#community", label: t.nav.community },
+    { href: "#booking", label: t.nav.bookNow },
+    { href: "#contact", label: t.nav.contact },
+  ];
+
+  const currentLang = languages.find((l) => l.code === language);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -28,10 +33,17 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-serif font-bold text-lg">B</span>
+            <Image
+              src="/images/logo.png"
+              alt="Banhu Travel & Tours"
+              width={48}
+              height={48}
+              className="w-12 h-12 object-contain"
+            />
+            <div className="flex flex-col">
+              <span className="font-serif font-bold text-lg text-foreground leading-tight">BANHU</span>
+              <span className="text-xs text-muted-foreground leading-tight">Travel & Tours</span>
             </div>
-            <span className="font-serif font-bold text-xl text-foreground">BANHU</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -60,19 +72,20 @@ export function Navigation() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="flex items-center gap-1">
                   <Globe className="w-4 h-4" />
-                  <span>SeSo</span>
+                  <span>{currentLang?.shortLabel}</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="max-h-80 overflow-y-auto">
-                <DropdownMenuItem>English</DropdownMenuItem>
-                <DropdownMenuItem>SeSotho</DropdownMenuItem>
-                <DropdownMenuItem>Sepedi</DropdownMenuItem>
-                <DropdownMenuItem>Xitsonga</DropdownMenuItem>
-                <DropdownMenuItem>Chinese (中文)</DropdownMenuItem>
-                <DropdownMenuItem>Russian (Русский)</DropdownMenuItem>
-                <DropdownMenuItem>Hindi (हिन्दी)</DropdownMenuItem>
-                <DropdownMenuItem>French (Français)</DropdownMenuItem>
-                <DropdownMenuItem>German (Deutsch)</DropdownMenuItem>
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                    className="flex items-center justify-between gap-2"
+                  >
+                    {lang.label}
+                    {language === lang.code && <Check className="w-4 h-4 text-primary" />}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -108,6 +121,28 @@ export function Navigation() {
                 <Phone className="w-4 h-4" />
                 <span>064 959 4490</span>
               </Link>
+              {/* Mobile Language Selector */}
+              <div className="pt-2 border-t border-border">
+                <p className="text-sm text-muted-foreground mb-2">Language</p>
+                <div className="grid grid-cols-3 gap-2">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code);
+                        setIsOpen(false);
+                      }}
+                      className={`text-sm py-2 px-3 rounded-md transition-colors ${
+                        language === lang.code
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted text-muted-foreground hover:bg-muted/80"
+                      }`}
+                    >
+                      {lang.shortLabel}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         )}

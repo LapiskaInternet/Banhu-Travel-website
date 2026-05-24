@@ -1,43 +1,51 @@
+"use client";
+
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
-const contactInfo = [
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "064 959 4490",
-    href: "tel:+27649594490",
-  },
-  {
-    icon: Mail,
-    label: "Email",
-    value: "info@banhutravel.co.za",
-    href: "mailto:info@banhutravel.co.za",
-  },
-  {
-    icon: MapPin,
-    label: "Address",
-    value: "Mount Lapiska, Canhuk Drive, Acornhoek, Mpumalanga, South Africa",
-    href: null,
-  },
-  {
-    icon: Clock,
-    label: "Operating Hours",
-    value: "Mon-Sat 6:00 AM - 6:00 PM",
-    href: null,
-  },
-];
+import { useLanguage } from "@/components/language-provider";
 
 export function Contact() {
+  const { t } = useLanguage();
+
+  const contactInfo = [
+    {
+      icon: Phone,
+      label: t.contact.phone,
+      value: "064 959 4490",
+      href: "tel:+27649594490",
+    },
+    {
+      icon: Mail,
+      label: t.contact.email,
+      value: "info@banhutravel.co.za",
+      href: "mailto:info@banhutravel.co.za",
+    },
+    {
+      icon: MapPin,
+      label: t.contact.address,
+      value: "Mount Lapiska, Canhuk Drive, Acornhoek, Mpumalanga, South Africa",
+      href: null,
+    },
+    {
+      icon: Clock,
+      label: t.contact.hours,
+      value: t.contact.hoursValue,
+      href: null,
+    },
+  ];
+
   return (
     <section id="contact" className="py-20 lg:py-28 bg-muted/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Contact Us
+            {t.contact.title}
           </h2>
+          <p className="mt-4 text-muted-foreground text-lg">
+            {t.contact.subtitle}
+          </p>
         </div>
 
         <div className="mt-16 grid lg:grid-cols-2 gap-12">
@@ -78,7 +86,7 @@ export function Contact() {
                 rel="noopener noreferrer"
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
-                Chat on WhatsApp
+                {t.contact.whatsapp}
               </Link>
             </Button>
           </div>
@@ -93,7 +101,7 @@ export function Contact() {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Banhu Tourism Location - Mount Lapiska, Acornhoek, Mpumalanga"
+              title="Banhu Travel & Tours Location - Mount Lapiska, Acornhoek, Mpumalanga"
             />
           </div>
         </div>

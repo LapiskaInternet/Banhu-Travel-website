@@ -1,38 +1,40 @@
+"use client";
+
 import { GraduationCap, Handshake, TrendingUp } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-
-const communityItems = [
-  {
-    icon: GraduationCap,
-    title: "Learner Guide Programme",
-    description:
-      "We train and mentor aspiring guides from Powerline and Shobiyane villages through CATHSSETA-accredited programmes, creating real career opportunities in tourism.",
-  },
-  {
-    icon: Handshake,
-    title: "Thornybush Partnership",
-    description:
-      "Our collaboration with Thornybush Nature Reserve and the Timbavati Foundation provides hands-on training placements for learner guides like Keletso and Gracius, bridging the gap between theory and practice.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Economic Impact",
-    description:
-      "Tourism revenue flows directly back into local communities, supporting families, education, and small business development in the Acornhoek area.",
-  },
-];
+import { useLanguage } from "@/components/language-provider";
 
 export function Community() {
+  const { t } = useLanguage();
+
+  const communityItems = [
+    {
+      icon: GraduationCap,
+      title: t.community.learnerGuide.title,
+      description: t.community.learnerGuide.description,
+    },
+    {
+      icon: Handshake,
+      title: t.community.partnership.title,
+      description: t.community.partnership.description,
+    },
+    {
+      icon: TrendingUp,
+      title: t.community.economic.title,
+      description: t.community.economic.description,
+    },
+  ];
+
   return (
     <section id="community" className="py-20 lg:py-28 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Community First
+            {t.community.title}
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Every tour supports local development
+            {t.community.subtitle}
           </p>
         </div>
 
@@ -56,16 +58,6 @@ export function Community() {
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        {/* Partnership Banner */}
-        <div className="mt-16 bg-secondary rounded-2xl p-8 lg:p-12 text-center">
-          <p className="text-secondary-foreground/80 text-sm font-medium uppercase tracking-wide">
-            Thornybush Nature Reserve
-          </p>
-          <p className="mt-2 text-secondary-foreground text-xl lg:text-2xl font-serif">
-            Official Community Partnership
-          </p>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { LanguageProvider } from '@/components/language-provider'
 import './globals.css'
 
 const playfair = Playfair_Display({ 
@@ -16,8 +17,8 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: 'Banhu Tourism | Experience the Heart of Mpumalanga',
-  description: 'Guided tours through Mariepskop, Motsepadi, and the Acornhoek region. CATHSSETA-registered tour operation offering authentic bushveld experiences in South Africa.',
+  title: 'Banhu Travel & Tours | Experience the Heart of Mpumalanga',
+  description: 'Guided tours through Mariepskop, Motsepadi, and the Acornhoek region. Community-based tour operation offering authentic bushveld experiences in South Africa.',
   generator: 'v0.app',
   keywords: ['Mpumalanga tours', 'Mariepskop', 'Acornhoek tourism', 'South Africa safari', 'bushveld experience', 'community tourism'],
   icons: {
@@ -47,7 +48,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${sourceSans.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

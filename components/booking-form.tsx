@@ -13,17 +13,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
+import { useLanguage } from "@/components/language-provider";
 
 const tours = [
-  { value: "village-walk", label: "Motsepadi Village Walk - R450" },
-  { value: "mountain-adventure", label: "Mariepskop Mountain Adventure - R1,250" },
-  { value: "wildlife-experience", label: "Hoedspruit Wildlife Experience - R950" },
-  { value: "conservation-tour", label: "Thornybush Conservation Tour - R1,800" },
+  { value: "motsepadi", label: "Motsepadi Village Walk - R450" },
+  { value: "mariepskop", label: "Mariepskop Mountain Adventure - R1,250" },
+  { value: "moloro", label: "Moloro Village Trail - R500" },
+  { value: "panorama", label: "Panorama Tour - R1,500" },
 ];
 
 export function BookingForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,17 +60,17 @@ export function BookingForm() {
                 </svg>
               </div>
               <h3 className="mt-6 font-serif text-2xl font-bold text-foreground">
-                Booking Request Received
+                {t.booking.success.title}
               </h3>
               <p className="mt-4 text-muted-foreground">
-                {"Thank you for your booking request! We'll confirm your adventure via WhatsApp shortly."}
+                {t.booking.success.message}
               </p>
               <Button
                 onClick={() => setSubmitted(false)}
                 variant="outline"
                 className="mt-6"
               >
-                Submit Another Booking
+                {t.booking.success.another}
               </Button>
             </CardContent>
           </Card>
@@ -83,10 +85,10 @@ export function BookingForm() {
         {/* Header */}
         <div className="text-center">
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Book Your Adventure
+            {t.booking.title}
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            {"Fill in the form below and we'll confirm your booking via WhatsApp"}
+            {t.booking.subtitle}
           </p>
         </div>
 
@@ -95,19 +97,19 @@ export function BookingForm() {
           <CardContent className="p-6 lg:p-10">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name *</Label>
+                <Label htmlFor="name">{t.booking.form.name} *</Label>
                 <Input
                   id="name"
                   name="name"
                   type="text"
                   required
-                  placeholder="Your full name"
+                  placeholder={t.booking.form.name}
                   className="h-12"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address *</Label>
+                <Label htmlFor="email">{t.booking.form.email} *</Label>
                 <Input
                   id="email"
                   name="email"
@@ -119,7 +121,7 @@ export function BookingForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number *</Label>
+                <Label htmlFor="phone">{t.booking.form.phone} *</Label>
                 <Input
                   id="phone"
                   name="phone"
@@ -131,10 +133,10 @@ export function BookingForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="tour">Tour Selection *</Label>
+                <Label htmlFor="tour">{t.booking.form.tourSelection} *</Label>
                 <Select name="tour" required>
                   <SelectTrigger className="h-12">
-                    <SelectValue placeholder="Select a tour" />
+                    <SelectValue placeholder={t.booking.form.selectTour} />
                   </SelectTrigger>
                   <SelectContent>
                     {tours.map((tour) => (
@@ -148,7 +150,7 @@ export function BookingForm() {
 
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="date">Preferred Date</Label>
+                  <Label htmlFor="date">{t.booking.form.preferredDate}</Label>
                   <Input
                     id="date"
                     name="date"
@@ -158,7 +160,7 @@ export function BookingForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="guests">Number of Guests</Label>
+                  <Label htmlFor="guests">{t.booking.form.guests}</Label>
                   <Input
                     id="guests"
                     name="guests"
@@ -172,11 +174,11 @@ export function BookingForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="requests">Special Requests</Label>
+                <Label htmlFor="requests">{t.booking.form.specialRequests}</Label>
                 <Textarea
                   id="requests"
                   name="requests"
-                  placeholder="Any dietary requirements, accessibility needs, or special requests..."
+                  placeholder={t.booking.form.specialRequests}
                   rows={4}
                 />
               </div>
@@ -187,11 +189,11 @@ export function BookingForm() {
                 className="w-full h-14 text-lg bg-primary hover:bg-primary/90"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Submitting..." : "Submit Booking Request"}
+                {isSubmitting ? t.booking.form.submitting : t.booking.form.submit}
               </Button>
 
               <p className="text-center text-sm text-muted-foreground">
-                {"Payment is via EFT. We'll send banking details after confirmation."}
+                {t.booking.form.paymentNote}
               </p>
             </form>
           </CardContent>
